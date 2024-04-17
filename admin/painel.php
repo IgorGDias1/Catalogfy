@@ -1,6 +1,14 @@
 <?php
 // Painel de administração
 
+session_start();
+// Verificar se a sessão não exite:
+  if(!isset($_SESSION['usuario'])){
+    // Voltar ao login:
+    header('Location: index.php');
+    die();
+  }
+  
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -25,7 +33,7 @@
         <div class="row mb-3">
             <div class="col d-flex justify-content-end">
                 <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Produto</button>
-                <a class="btn btn-danger mx-1 text-white" href="#"><i class="bi bi-box-arrow-right"></i> Sair</a>
+                <a class="btn btn-danger mx-1 text-white" href="sair.php"><i class="bi bi-box-arrow-right"></i> Sair</a>
             </div>
         </div>
         <table class="table table-striped table-hover">
@@ -68,7 +76,7 @@
     <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" >
                     <h5 class="modal-title" id="modalCadastroLabel">Cadastro de Produto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
