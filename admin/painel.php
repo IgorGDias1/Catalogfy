@@ -1,6 +1,8 @@
 <?php
 require_once('actions/classes/Categoria.class.php');
 
+require_once('actions/classes/Produto.class.php');
+
 session_start();
 // Verificar se a sessão não exite:
 if (!isset($_SESSION['usuario'])) {
@@ -11,10 +13,11 @@ if (!isset($_SESSION['usuario'])) {
 
 // Puxar as categorias:
 $c = new Categoria();
+$p = new Produto();
 
 $lista_categorias = $c->Listar();
 
-
+$lista_produtos = $p->ListarTudo();
 
 ?>
 <!DOCTYPE html>
@@ -53,27 +56,22 @@ $lista_categorias = $c->Listar();
                     <th>Categoria</th>
                     <th>Estoque</th>
                     <th>Preço</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><img src="https://via.placeholder.com/150x150.png" alt="Produto 1"></td>
-                    <td>Produto 1</td>
-                    <td>Descrição do Produto 1</td>
-                    <td>Categoria 1</td>
-                    <td>10</td>
-                    <td>R$ 100,00</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><img src="https://via.placeholder.com/150x150.png" alt="Produto 2"></td>
-                    <td>Produto 2</td>
-                    <td>Descrição do Produto 2</td>
-                    <td>Categoria 2</td>
-                    <td>5</td>
-                    <td>R$ 50,00</td>
-                </tr>
+                <?php foreach ($lista_produtos as $linha) { ?>
+                    <tr>
+                        <td><?= $linha['id']; ?></td>
+                        <td><img src="img/<?= $linha['foto']; ?>" alt="<?= $linha['nome']; ?>" width="150px"></td>
+                        <td> <?= $linha['nome']; ?> </td>
+                        <td> <?= $linha['descricao']; ?> </td>
+                        <td> <?= $linha['id_categoria']; ?> </td>
+                        <td> <?= $linha['estoque']; ?> </td>
+                        <td> <?= $linha['preco']; ?> </td>
+                        <td> <a href="editar.php?id=<?= $linha['id']; ?>">Editar</a> | <a href="actions/apagar_produto.php?id= <?= $linha['id']; ?>">Excluir</a> </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
 
@@ -136,7 +134,7 @@ $lista_categorias = $c->Listar();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
                     </div>
                 </form>
             </div>

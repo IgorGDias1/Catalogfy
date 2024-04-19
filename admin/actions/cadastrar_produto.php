@@ -20,10 +20,33 @@
         // Verificar se está chegando uma foto do formulário:
             if($_FILES['foto']['size']>0){
                 $destino = "../img/";
-                $novo_nome = hash_file('md5', $_FILES['foto']['tmp_file']);
+                // Obter o hash do arquivo:
+                $novo_nome = hash_file('md5', $_FILES['foto']['tmp_name']);
+                // Obter a extensão do arquivo:
+                $extensao = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+                // Montar o novo nome do arquivo:
+                $novo_nome = $novo_nome . "." . $extensao;
                 
+                // Mover o arquivo para a pasta:
+                if(move_uploaded_file($_FILES['foto']['tmp_name'], $destino.$novo_nome)){
+                    $p->foto = $novo_nome;
+                    if($p->CadastrarComFoto() == 1){
+                        // Redirecionar:
+                        header('Location: ../painel.php');
+                    }else{
+                        echo "Falha ao cadastrar o produto.";
+                    }
+                }else{
+                    echo "Falha ao mover a imagem!";
+                }
+
             }else{
-                echo 'Não existe uma foto';
+                if($p->CadastrarSemFoto() == 1){
+                    // Redirecionar:
+                    header('Location: ../painel.php');
+                }else{
+                    echo "Falha ao cadastrar o produto.";
+                }
             }
     }
 

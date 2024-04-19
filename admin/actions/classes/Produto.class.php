@@ -56,10 +56,10 @@ class Produto{
     }
 
     public function Modificar(){
-        $sql = "UPDATE produtos SET foto=?,nome=?,preco=?,estoque=?,id_categoria=?,id_usuario_resp=?,descricao=?  WHERE id=?";
+        $sql = "UPDATE produtos SET nome=?, preco=?, estoque=?, id_categoria=?, id_usuario_resp=?, descricao=?  WHERE id=?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->foto, $this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->id_usuario_resp, $this->descricao, $this->id]);
+        $comando->execute([$this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->id_usuario_resp, $this->descricao, $this->id]);
         Banco::desconectar();
         return $comando->rowCount();
     }
