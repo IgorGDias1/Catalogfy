@@ -24,10 +24,10 @@ class Produto{
     }
 
     public function ListarPorId(){
-        $sql = "SELECT * FROM produtos";
+        $sql = "SELECT * FROM produtos WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute();
+        $comando->execute([$this->id]);
 
         $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
@@ -56,15 +56,15 @@ class Produto{
     }
 
     public function Modificar(){
-        $sql = "UPDATE produtos SET nome=?, preco=?, estoque=?, id_categoria=?, id_usuario_resp=?, descricao=?  WHERE id=?";
+        $sql = "UPDATE produtos SET nome=?, preco=?, estoque=?, id_categoria=?, descricao=?  WHERE id=?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->id_usuario_resp, $this->descricao, $this->id]);
+        $comando->execute([$this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->descricao, $this->id]);
         Banco::desconectar();
         return $comando->rowCount();
     }
 
-    public function Remover(){
+    public function Apagar(){
         $sql = "DELETE FROM produtos WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);

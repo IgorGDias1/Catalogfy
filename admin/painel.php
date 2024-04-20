@@ -127,7 +127,7 @@ $lista_produtos = $p->ListarTudo();
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">R$</span>
                                 </div>
-                                <input type="number" class="form-control" id="precoProduto" placeholder="Digite o preço" name="preco">
+                                <input type="number" step=".01" class="form-control" id="precoProduto" placeholder="Digite o preço" name="preco">
                             </div>
                         </div>
 
