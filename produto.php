@@ -1,7 +1,14 @@
 <?php
-// Página com detalhes do produtos selecionado.
-// ex: produto.php?id=25
 
+if(!isset($_GET['id'])){
+  // Redirecionar:
+  header('Location: index.php'); 
+}else{
+  require_once("admin/actions/classes/Produto.class.php");
+  $p = new Produto();
+  $p->id = $_GET['id'];
+  $dados = $p->ListarPorID()[0];    
+}
 ?>
 
 <!doctype html>
@@ -42,16 +49,15 @@
     <!-- Detalhes do Produto selecionado: -->
     <div class="row mt-5">
         <div class="col-7">
-            <img class="rounded mx-auto d-block" src="https://i.imgur.com/cnC3irP.jpg"/>
+            <img class="rounded mx-auto d-block" src="admin/img/<?= $dados['foto']; ?>" alt="<?= $dados['nome']; ?>" width="300px"/>
         </div>
         <div class="col-5">
-            <h2>Titulo do Produto</h2>
-            <p>Descrição do produto</p>
-            <h1 class="display-6">$9,99</h1>
+            <h2> <?= $dados['nome']; ?> </h2>
+            <p> <?= substr($dados['descricao'], 0, 10); ?> </p>
+            <h1 class="display-6"> <?= $dados['preco']; ?> </h1>
             <a href="index.php"><small class="text-muted">Voltar</small></a>
         </div>
     </div>
-   
 </div>
 
 <div class="container">

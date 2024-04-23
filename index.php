@@ -1,5 +1,10 @@
 <?php
-// Página inicial do site para listagem de produtos cadastrados.
+require_once('admin/actions/classes/Produto.class.php');
+
+
+$p = new Produto();
+
+$lista_produtos = $p->ListarTudo();
 
 ?>
 <!doctype html>
@@ -38,114 +43,25 @@
         </div>
     </div>
     <!-- Listagem de produtos: 4 por linha: -->
+    
     <div class="row mt-5">
+        <?php foreach ($lista_produtos as $linha) { ?>
         <div class="col-3">
             <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
+                <a href="#"><img class="card-img-top" src="admin/img/<?= $linha['foto']; ?>" alt="<?= $linha['nome']; ?>" ></a>
                 <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
+                    <h4 class="card-title"> <?= $linha['nome']; ?> </h4>
+                    <p class="card-text"> <?= substr($linha['descricao'], 0, 30). "..."; ?>
                         <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
+                          <a href="produto.php?id=<?= $linha['id']; ?>" class="btn btn-primary">Mais detalhes...</a>
                         </div>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
-                <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
-                        <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
-                <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
-                        <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
-                <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
-                        <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
+        <?php } ?>
     </div>
-    <div class="row mt-5">
-        <div class="col-3">
-            <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
-                <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
-                        <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
-                <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
-                        <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
-                <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
-                        <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card">
-                <a href="#"><img class="card-img-top" src="https://i.imgur.com/F5aMcqE.jpg" alt="Imagem"></a>
-                <div class="card-body">
-                    <h4 class="card-title">Titulo</h4>
-                    <p class="card-text">Descrição curta.
-                        <div class="d-grid gap-2">
-                          <a href="#" class="btn btn-primary">Mais detalhes...</a>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 
 <div class="container">
