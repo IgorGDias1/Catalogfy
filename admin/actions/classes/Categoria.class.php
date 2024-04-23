@@ -20,18 +20,28 @@ class Categoria{
         VALUES (?)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->nome]);
-        Banco::desconectar();
-        return $comando->rowCount();
+        try{
+            $comando->execute([$this->nome]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }
     }
 
     public function Modificar(){
         $sql = "UPDATE categorias SET nome=? WHERE id=?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->nome, $this->id]);
-        Banco::desconectar();
-        return $comando->rowCount();
+        try{
+            $comando->execute([$this->nome, $this->id]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }
     }
 
     public function Remover(){

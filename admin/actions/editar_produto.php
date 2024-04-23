@@ -19,11 +19,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $p->estoque = strip_tags($_POST['estoque']);
     $p->id_categoria = strip_tags($_POST['id_categoria']);
     $p->descricao = strip_tags($_POST['descricao']);
+
+    // Verificar por dados inválidos:
+
+    if(strlen($p->nome)<=3 || $p->preco == "" || $p->estoque == ""){
+        header('Location: ../painel.php?falha=editarproduto');
+        die();
+    }
+
     if($p->Modificar() == 1){
         // Redirecionar de volta a index.php:
-        header('Location: ../painel.php');
+        header('Location: ../painel.php?sucesso=editarproduto');
     }else{
-        header('Location: ../painel.php');
+        header('Location: ../painel.php?falha=editarproduto');
     }
 
 }else{

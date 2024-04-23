@@ -69,7 +69,7 @@ $lista_produtos = $p->ListarTudo();
                         <td> <?= $linha['id_categoria']; ?> </td>
                         <td> <?= $linha['estoque']; ?> </td>
                         <td> <?= $linha['preco']; ?> </td>
-                        <td> <a href="editar.php?id=<?= $linha['id']; ?>">Editar</a> | <a href="actions/apagar_produto.php?id= <?= $linha['id']; ?>">Excluir</a> </td>
+                        <td> <a href="editar.php?id=<?= $linha['id']; ?>">Editar</a> | <a href="#" onclick="excluir(<?= $linha['id']; ?>)">Excluir</a> </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -170,6 +170,29 @@ $lista_produtos = $p->ListarTudo();
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <?php
+
+    include_once('includes/alertas.include.php');
+
+    ?>
+    <script>
+        function excluir(id) {
+            Swal.fire({
+                title: "Tem certeza?",
+                text: "Não sera possível desfazer essa ação",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sim, apagar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //  Redirecionar pro apagar_produto.php;
+                    window.location.href= 'actions/apagar_produto.php?id='+id;
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

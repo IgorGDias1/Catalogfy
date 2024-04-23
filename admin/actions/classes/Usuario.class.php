@@ -27,18 +27,28 @@ class Usuarios{
 
         $hash = hash("sha256", $this->senha);
 
-        $comando->execute([$this->nome, $this->email, $hash]);
-        Banco::desconectar();
-        return $comando->rowCount();
+        try{
+            $comando->execute([$this->nome, $this->email, $hash]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }
     }
 
     public function Modificar(){
         $sql = "UPDATE usuarios SET nome=?,email=?,senha=?  WHERE id=?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->id, $this->nome, $this->email, $this->senha]);
-        Banco::desconectar();
-        return $comando->rowCount();
+        try{
+            $comando->execute([$this->id, $this->nome, $this->email, $this->senha]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }
     }
 
     public function Remover(){

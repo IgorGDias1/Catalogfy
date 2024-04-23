@@ -104,6 +104,11 @@
             $("#titulo").text('Login');
         });
     </script>
+    <?php
+
+    include_once('includes/alertas.include.php');
+
+    ?>
 </body>
 
 </html>

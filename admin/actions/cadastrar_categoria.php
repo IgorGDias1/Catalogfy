@@ -12,10 +12,18 @@
         require_once('classes/Categoria.class.php');
         $c = new Categoria();
         $c->nome = $_POST['categoria'];
+
+        // Verificar por dados inválidos:
+
+            if(strlen($c->nome)<=3 ){
+                header('Location: ../painel.php?falha=cadastrocategoria');
+                die();
+            }
+
         if($c->Cadastrar() == 1){
-            header('Location: ../painel.php');
+            header('Location: ../painel.php?sucesso=cadastrocategoria');
         }else{
-            echo "Falha ao cadastrar categoria.";
+            header('Location: ../painel.php?falha=cadastrocategoria');
         }
     }else{
         echo "Essa página deve ser carregada por POST";

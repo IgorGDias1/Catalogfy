@@ -40,9 +40,14 @@ class Produto{
         VALUES (?, ?, ?, ?, ?, ?)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->id_usuario_resp, $this->descricao]);
-        Banco::desconectar();
-        return $comando->rowCount();
+        try{
+            $comando->execute([$this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->id_usuario_resp, $this->descricao]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }
     }
 
     public function CadastrarComFoto(){
@@ -50,18 +55,28 @@ class Produto{
         VALUES (?, ?, ?, ?, ?, ?, ?)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->foto, $this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->id_usuario_resp, $this->descricao]);
-        Banco::desconectar();
-        return $comando->rowCount();
+        try{
+            $comando->execute([$this->foto, $this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->id_usuario_resp, $this->descricao]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }
     }
 
     public function Modificar(){
         $sql = "UPDATE produtos SET nome=?, preco=?, estoque=?, id_categoria=?, descricao=?  WHERE id=?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->descricao, $this->id]);
-        Banco::desconectar();
-        return $comando->rowCount();
+        try{
+            $comando->execute([$this->nome, $this->preco, $this->estoque, $this->id_categoria, $this->descricao, $this->id]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
     }
 
     public function Apagar(){

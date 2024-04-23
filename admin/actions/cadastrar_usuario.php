@@ -8,11 +8,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $u->email = strip_tags($_POST['email']);
     $u->senha = strip_tags($_POST['senha']);
 
+    // Verificar por dados inválidos:
+
+        if(strlen($u->nome)<=3 || $u->email == "" || $u->senha == ""){
+            header('Location: ../index.php?falha=cadastrousuario');
+            die();
+        }
+
     if($u->Cadastrar() == 1){
         // Redirecionar de volta a login.php:
-       header('Location: ../index.php');
+       header('Location: ../index.php?sucesso=cadastrousuario');
     }else{
-       echo "Falha ao cadastrar."; 
+        header('Location: ../index.php?falha=cadastrousuario'); 
     }
 
 }else{

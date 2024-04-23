@@ -16,9 +16,9 @@ if(isset($_GET['id'])){
     $p->id = $_GET['id'];
     if($p->Apagar() == 1){
         // Redirecionar de volta ao index.php:
-        header('Location: ../painel.php');
+        header('Location: ../painel.php?sucesso=removerproduto');
     }else{
-        header('Location: ../painel.php');
+        header('Location: ../painel.php?falha=removerproduto');
     }
 }else{
     echo "Erro! Informe o ID a ser apagado!";

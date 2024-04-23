@@ -14,7 +14,7 @@
             $_SESSION['usuario'] = $resultado[0];
             header('Location: painel.php');
         }else{
-            echo "Usuário ou senha incorretos";
+            header('Location: index.php?sucesso=falhalogin');
         }
 
     }else{
